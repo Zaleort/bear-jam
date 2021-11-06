@@ -13,11 +13,14 @@ public class Map : MonoBehaviour
   void Start()
   {
     generator = this.GetComponent<MapGenerator>();
-    SetMap(1);
+    SetLevel(1);
   }
 
-  public void SetMap(int level)
+  public void SetLevel(int level)
   {
+    DestroyTiles();
+    DestroyEidolon();
+
     switch (level)
     {
       case 1:
@@ -31,5 +34,24 @@ public class Map : MonoBehaviour
         size = tiles.GetLength(1);
         break;
     }
+  }
+
+  private void DestroyTiles()
+  {
+    if (tiles == null) return;
+
+    for (int i = 0; i < tiles.GetLength(0); i++)
+    {
+      for (int j = 0; j < tiles.GetLength(1); j++)
+      {
+        Destroy(tiles[i, j]);
+      }
+    }
+  }
+
+  private void DestroyEidolon()
+  {
+    if (eidolon == null) return;
+    Destroy(eidolon);
   }
 }

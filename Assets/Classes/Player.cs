@@ -5,10 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
   public Rigidbody2D body;
+  private SpriteRenderer spriteRenderer;
   public Map map;
   public int start;
   public int end;
-  private SpriteRenderer spriteRenderer; 
+
+  private float timeSinceLastMovement = 0f;
+  private bool isCollidingEidolon = false;
 
   void Start()
   {
@@ -25,41 +28,70 @@ public class Player : MonoBehaviour
 
   private void OnTriggerEnter2D(Collider2D collision)
   {
-    if (IsWinner(collision))
+    if (IsWinner(collision) && !isCollidingEidolon)
     {
-      print("He ganao");
+      isCollidingEidolon = true;
+      SendMessageUpwards("Win");
     }
 
     if (IsDead(collision))
     {
-      print("Me he murido");
+      SendMessageUpwards("Die");
+    }
+  }
+
+  private void OnTriggerStay2D(Collider2D collision)
+  {
+    if (IsDead(collision))
+    {
+      SendMessageUpwards("Die");
     }
   }
 
   private void Move()
   {
-    if (Input.GetKeyDown("left") && IsLegalMove(this.transform.position.x, -Constants.SPRITE_SIZE))
-    {
+     timeSinceLastMovement += Time.deltaTime;
+
+    if (
+      Input.GetKeyDown("left") 
+      && IsLegalTime()
+      && IsLegalMove(this.transform.position.x, -Constants.SPRITE_SIZE)
+    ) {
       this.transform.position += new Vector3(-Constants.SPRITE_SIZE, 0, 0);
-      spriteRenderer.sprite = PlayerSprite.Left;
+      spriteRenderer.flipX = true;
+      spriteRenderer.sprite = PlayerSprite.Side;
     }
 
-    if (Input.GetKeyDown("right") && IsLegalMove(this.transform.position.x, Constants.SPRITE_SIZE))
-    {
+    if (Input.GetKeyDown("right") 
+      && IsLegalTime()
+      && IsLegalMove(this.transform.position.x, Constants.SPRITE_SIZE)
+    ) {
       this.transform.position += new Vector3(Constants.SPRITE_SIZE, 0, 0);
-      spriteRenderer.sprite = PlayerSprite.Right;
+      spriteRenderer.flipX = false;
+      spriteRenderer.sprite = PlayerSprite.Side;
     }
 
-    if (Input.GetKeyDown("up") && IsLegalMove(this.transform.position.y, Constants.SPRITE_SIZE))
-    {
+    if (Input.GetKeyDown("up") 
+      && IsLegalTime()
+      && IsLegalMove(this.transform.position.y, Constants.SPRITE_SIZE)
+    ) {
       this.transform.position += new Vector3(0, Constants.SPRITE_SIZE, 0);
-      spriteRenderer.sprite = PlayerSprite.Up;
+
+      if (spriteRenderer.sprite.name != "player_up")
+      {
+        spriteRenderer.sprite = PlayerSprite.Up;
+      }
     }
 
-    if (Input.GetKeyDown("down") && IsLegalMove(this.transform.position.y, -Constants.SPRITE_SIZE))
-    {
+    if (Input.GetKeyDown("down") 
+      && IsLegalTime()
+      && IsLegalMove(this.transform.position.y, -Constants.SPRITE_SIZE)
+    ) {
       this.transform.position += new Vector3(0, -Constants.SPRITE_SIZE, 0);
-      spriteRenderer.sprite = PlayerSprite.Down;
+      if (spriteRenderer.sprite.name != "player_down")
+      {
+        spriteRenderer.sprite = PlayerSprite.Down;
+      }
     }
   }
 
@@ -67,6 +99,16 @@ public class Player : MonoBehaviour
   {
     float res = position + delta;
     return !(res < start || res >= end);
+  }
+
+  private bool IsLegalTime()
+  {
+    if (timeSinceLastMovement > 0.04f) {
+      timeSinceLastMovement = 0;
+      return true;
+    }
+
+    return false;
   }
 
   private bool IsDead(Collider2D collision)
@@ -90,5 +132,11 @@ public class Player : MonoBehaviour
     }
 
     return false;
+  }
+
+  private void RestartPlayerPosition()
+  {
+    isCollidingEidolon = false;
+    this.transform.position = new Vector3(0, 0, -1);
   }
 }

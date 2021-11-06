@@ -25,9 +25,11 @@ public class Tile : MonoBehaviour
         break;
       case TileState.Cracked:
         spriteRenderer.sprite = TileSprite.Cracked;
+        spriteRenderer.color = new Color(0, 255, 0);
         break;
       case TileState.Broken:
         spriteRenderer.sprite = TileSprite.Broken;
+        spriteRenderer.color = new Color(255, 0, 0);
         break;
       default:
         spriteRenderer.sprite = TileSprite.Normal;

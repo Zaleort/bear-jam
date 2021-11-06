@@ -8,7 +8,7 @@ public class TileSprite
   public static Sprite Normal = Resources.Load<Sprite>("Sprites/tile1");
   public static Sprite Normal2 = Resources.Load<Sprite>("Sprites/tile2");
   public static Sprite Normal3 = Resources.Load<Sprite>("Sprites/tile3");
-  public static Sprite Cracked = Resources.Load<Sprite>("Sprites/cracked");
+  public static Sprite Cracked = Resources.Load<Sprite>("Sprites/tile1");
   public static Sprite Broken = Resources.Load<Sprite>("Sprites/tile1");
 
   public static Sprite GetRandomNormalSprite()

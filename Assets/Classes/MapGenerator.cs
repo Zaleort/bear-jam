@@ -21,26 +21,26 @@ public class MapGenerator: MonoBehaviour
     return new GameObject[8, 8] {
       // 1
       { 
-        CreateTile(0, 0, TileState.Normal, 250f),
-        CreateTile(0, 1, TileState.Normal, 250f),
-        CreateTile(0, 2, TileState.Normal, 250f),
-        CreateTile(0, 3, TileState.Normal, 250f),
+        CreateTile(0, 0, TileState.Normal, 500f),
+        CreateTile(0, 1, TileState.Normal, 3f),
+        CreateTile(0, 2, TileState.Normal, 7f),
+        CreateTile(0, 3, TileState.Normal, 12f),
         CreateTile(0, 4, TileState.Normal, 250f),
-        CreateTile(0, 5, TileState.Normal, 250f),
-        CreateTile(0, 6, TileState.Normal, 250f),
-        CreateTile(0, 7, TileState.Normal, 250f),
+        CreateTile(0, 5, TileState.Normal, 50f),
+        CreateTile(0, 6, TileState.Normal, 2f),
+        CreateTile(0, 7, TileState.Normal, 9f),
       },
 
       // 2
       { 
-        CreateTile(1, 0, TileState.Normal, 250f),
-        CreateTile(1, 1, TileState.Normal, 250f),
-        CreateTile(1, 2, TileState.Normal, 250f),
-        CreateTile(1, 3, TileState.Normal, 250f),
-        CreateTile(1, 4, TileState.Normal, 250f),
-        CreateTile(1, 5, TileState.Normal, 250f),
-        CreateTile(1, 6, TileState.Normal, 250f),
-        CreateTile(1, 7, TileState.Normal, 250f),
+        CreateTile(1, 0, TileState.Normal, 3f),
+        CreateTile(1, 1, TileState.Normal, 4f),
+        CreateTile(1, 2, TileState.Normal, 5f),
+        CreateTile(1, 3, TileState.Normal, 6f),
+        CreateTile(1, 4, TileState.Normal, 7f),
+        CreateTile(1, 5, TileState.Normal, 8f),
+        CreateTile(1, 6, TileState.Normal, 9f),
+        CreateTile(1, 7, TileState.Normal, 10f),
       },
 
       // 3
