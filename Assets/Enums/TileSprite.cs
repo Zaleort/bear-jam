@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class TileSprite
+{
+  public static Sprite Safe = Resources.Load<Sprite>("Sprites/tile1");
+  public static Sprite Normal = Resources.Load<Sprite>("Sprites/tile1");
+  public static Sprite Normal2 = Resources.Load<Sprite>("Sprites/tile2");
+  public static Sprite Normal3 = Resources.Load<Sprite>("Sprites/tile3");
+  public static Sprite Cracked = Resources.Load<Sprite>("Sprites/cracked");
+  public static Sprite Broken = Resources.Load<Sprite>("Sprites/tile1");
+
+  public static Sprite GetRandomNormalSprite()
+  {
+    System.Random random = new System.Random();
+    int num = random.Next(1, 4);
+
+    switch (num)
+    {
+      case 2: 
+        return TileSprite.Normal2;
+      case 3:
+        return TileSprite.Normal3;
+      default:
+        return TileSprite.Normal;
+    }
+  }
+}
