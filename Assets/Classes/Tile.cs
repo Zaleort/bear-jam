@@ -17,24 +17,23 @@ public class Tile : MonoBehaviour
 
   public void SetState(TileState _state)
   {
-    state = _state;
-    switch (state)
+    switch (_state)
     {
       case TileState.Normal:
         spriteRenderer.sprite = TileSprite.GetRandomNormalSprite();
         break;
       case TileState.Cracked:
-        spriteRenderer.sprite = TileSprite.Cracked;
-        spriteRenderer.color = new Color(0, 255, 0);
+        spriteRenderer.sprite = TileSprite.Cracked1;
         break;
       case TileState.Broken:
         spriteRenderer.sprite = TileSprite.Broken;
-        spriteRenderer.color = new Color(255, 0, 0);
         break;
       default:
         spriteRenderer.sprite = TileSprite.Normal;
         break;
     }
+
+    state = _state;
   }
 
   void Start()
