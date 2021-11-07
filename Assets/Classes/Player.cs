@@ -76,11 +76,7 @@ public class Player : MonoBehaviour
       && IsLegalMove(this.transform.position.y, Constants.SPRITE_SIZE)
     ) {
       this.transform.position += new Vector3(0, Constants.SPRITE_SIZE, 0);
-
-      if (spriteRenderer.sprite.name != "player_up")
-      {
-        spriteRenderer.sprite = PlayerSprite.Up;
-      }
+      spriteRenderer.sprite = PlayerSprite.Up;
     }
 
     if (Input.GetKeyDown("down") 
@@ -88,10 +84,7 @@ public class Player : MonoBehaviour
       && IsLegalMove(this.transform.position.y, -Constants.SPRITE_SIZE)
     ) {
       this.transform.position += new Vector3(0, -Constants.SPRITE_SIZE, 0);
-      if (spriteRenderer.sprite.name != "player_down")
-      {
-        spriteRenderer.sprite = PlayerSprite.Down;
-      }
+      spriteRenderer.sprite = PlayerSprite.Down;
     }
   }
 
