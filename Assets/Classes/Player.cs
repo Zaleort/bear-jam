@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
   private float timeSinceLastMovement = 0f;
   private bool isCollidingEidolon = false;
+  private Collider2D playerCollider;
 
   void Start()
   {
@@ -26,26 +27,14 @@ public class Player : MonoBehaviour
     Move();
   }
 
-  private void OnTriggerEnter2D(Collider2D collision)
+  private void FixedUpdate()
   {
-    if (IsWinner(collision) && !isCollidingEidolon)
-    {
-      isCollidingEidolon = true;
-      SendMessageUpwards("Win");
-    }
-
-    if (IsDead(collision))
-    {
-      SendMessageUpwards("Die");
-    }
+    CheckCollision();
   }
 
-  private void OnTriggerStay2D(Collider2D collision)
+  private void OnTriggerEnter2D(Collider2D _collider)
   {
-    if (IsDead(collision))
-    {
-      SendMessageUpwards("Die");
-    }
+    playerCollider = _collider;
   }
 
   private void Move()
@@ -107,7 +96,6 @@ public class Player : MonoBehaviour
   private bool IsDead(Collider2D collision)
   {
     Tile tile = collision.GetComponent<Tile>();
-
     if (tile != null)
     {
       return tile.state == TileState.Broken;
@@ -131,5 +119,21 @@ public class Player : MonoBehaviour
   {
     isCollidingEidolon = false;
     this.transform.position = new Vector3(0, 0, -1);
+  }
+
+  private void CheckCollision()
+  {
+    if (playerCollider == null) return;
+
+    if (IsDead(playerCollider))
+    {
+      SendMessageUpwards("Die");
+    }
+
+    if (IsWinner(playerCollider) && !isCollidingEidolon)
+    {
+      isCollidingEidolon = true;
+      SendMessageUpwards("Win");
+    }
   }
 }
