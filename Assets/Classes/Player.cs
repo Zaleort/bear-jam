@@ -35,6 +35,11 @@ public class Player : MonoBehaviour
   private void OnTriggerEnter2D(Collider2D _collider)
   {
     playerCollider = _collider;
+    if (IsWinner(playerCollider) && !isCollidingEidolon)
+    {
+      isCollidingEidolon = true;
+      SendMessageUpwards("Win");
+    }
   }
 
   private void Move()
@@ -107,6 +112,7 @@ public class Player : MonoBehaviour
   private bool IsWinner(Collider2D collision)
   {
     Eidolon eidolon = collision.GetComponent<Eidolon>();
+    Debug.Log(eidolon);
     if (eidolon != null)
     {
       return true;
@@ -128,12 +134,6 @@ public class Player : MonoBehaviour
     if (IsDead(playerCollider))
     {
       SendMessageUpwards("Die");
-    }
-
-    if (IsWinner(playerCollider) && !isCollidingEidolon)
-    {
-      isCollidingEidolon = true;
-      SendMessageUpwards("Win");
     }
   }
 }
